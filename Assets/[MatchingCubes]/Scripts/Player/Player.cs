@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Player Initialized");
         Instance = this;
         IsControllable = true;
     }
