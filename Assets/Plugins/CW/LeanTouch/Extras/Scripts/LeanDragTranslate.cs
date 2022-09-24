@@ -13,7 +13,7 @@ namespace Lean.Touch
 
 		/// <summary>The camera the translation will be calculated using.
 		/// None/null = MainCamera.</summary>
-		public Camera Camera { set { _camera = value; } get { return _camera; } } [SerializeField] private Camera _camera;
+		public Camera Camera { set { _camera = value; } get { return _camera; } } [SerializeField] protected Camera _camera;
 
 		/// <summary>The movement speed will be multiplied by this.
 		/// -1 = Inverted Controls.</summary>
@@ -107,7 +107,7 @@ namespace Lean.Touch
 			remainingTranslation = newRemainingTranslation;
 		}
 
-		private void TranslateUI(Vector2 screenDelta)
+		protected virtual void TranslateUI(Vector2 screenDelta)
 		{
 			var camera = this._camera;
 
@@ -136,7 +136,7 @@ namespace Lean.Touch
 			}
 		}
 
-		private void Translate(Vector2 screenDelta)
+		protected virtual void Translate(Vector2 screenDelta)
 		{
 			// Make sure the camera exists
 			var camera = CwHelper.GetCamera(this._camera, gameObject);
