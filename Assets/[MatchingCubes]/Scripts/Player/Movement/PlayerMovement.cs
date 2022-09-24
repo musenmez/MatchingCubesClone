@@ -11,6 +11,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private MovementData _movementData;
     public MovementData MovementData => _movementData;
 
+    private void Awake()
+    {
+        Setup();
+    }
+
     private void Update()
     {
         MoveForward();
@@ -21,5 +26,11 @@ public class PlayerMovement : MonoBehaviour
         if (!Player.CanMoveForward)
             return;
 
+        transform.Translate(CurrentSpeed * Time.deltaTime * Vector3.forward);
+    }
+
+    private void Setup() 
+    {
+        CurrentSpeed = MovementData.DefaultSpeed;
     }
 }

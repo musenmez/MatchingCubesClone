@@ -12,12 +12,12 @@ public class LevelManager : Singleton<LevelManager>
 
     private void OnEnable()
     {
-        
+        InputManager.Instance.OnTouched.AddListener(StartLevel);
     }
 
     private void OnDisable()
-    {
-        
+    {     
+        InputManager.Instance.OnTouched.RemoveListener(StartLevel);
     }
 
     private void StartLevel() 

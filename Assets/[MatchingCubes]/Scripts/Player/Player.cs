@@ -19,13 +19,19 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
+        if (Managers.Instance == null)
+            return;
+
         LevelManager.Instance.OnLevelStarted.AddListener(ActivatePlayer);
     }
 
     private void OnDisable()
     {
+        if (Managers.Instance == null)
+            return;
+
         LevelManager.Instance.OnLevelStarted.RemoveListener(ActivatePlayer);
-    }
+    }  
 
     private void ActivatePlayer() 
     {
