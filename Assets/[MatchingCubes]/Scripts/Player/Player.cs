@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private static Player Instance;
+    public static Player Instance;
+
+    public bool IsControllable { get; private set; }
 
     private void Awake()
     {
         Instance = this;
+        IsControllable = true;
     }
 }

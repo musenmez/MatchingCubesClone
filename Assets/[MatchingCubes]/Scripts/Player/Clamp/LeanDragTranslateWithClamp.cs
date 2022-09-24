@@ -62,23 +62,23 @@ public class LeanDragTranslateWithClamp : LeanDragTranslate
 #if UNITY_EDITOR
 namespace Lean.Touch.Editor
 {
-	using UnityEditor;
-	using TARGET = LeanDragTranslateWithClamp;
+    using UnityEditor;
+    using TARGET = LeanDragTranslateWithClamp;
 
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(TARGET), true)]
-	public class LeanDragTranslate_Editor : CwEditor
-	{
-		protected override void OnInspector()
-		{
-			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);			
-			Draw("_clampData", "The clamp data the clamp will be calculated using this.");
-			Draw("Use");
-			Draw("_camera", "The camera the translation will be calculated using.\n\nNone/null = MainCamera.");
-			Draw("sensitivity", "The movement speed will be multiplied by this.\n\n-1 = Inverted Controls.");
-			Draw("damping", "If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.");
-			Draw("inertia", "This allows you to control how much momentum is retained when the dragging fingers are all released.\n\nNOTE: This requires <b>Damping</b> to be above 0.");
-		}
-	}
+    [CanEditMultipleObjects]
+    [CustomEditor(typeof(TARGET), true)]
+    public class LeanDragTranslate_Editor : CwEditor
+    {
+        protected override void OnInspector()
+        {
+            TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+            Draw("_clampData", "The clamp data the clamp will be calculated using this.");
+            Draw("Use");
+            Draw("_camera", "The camera the translation will be calculated using.\n\nNone/null = MainCamera.");
+            Draw("sensitivity", "The movement speed will be multiplied by this.\n\n-1 = Inverted Controls.");
+            Draw("damping", "If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.");
+            Draw("inertia", "This allows you to control how much momentum is retained when the dragging fingers are all released.\n\nNOTE: This requires <b>Damping</b> to be above 0.");
+        }
+    }
 }
 #endif
