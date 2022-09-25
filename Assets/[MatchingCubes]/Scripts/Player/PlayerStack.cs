@@ -5,14 +5,13 @@ using DG.Tweening;
 using UnityEngine.Events;
 
 public class PlayerStack : CubeStackBase
-{ 
-    [SerializeField] private Transform _playerBody;  
+{
+    public Transform PlayerBody => _playerBody;
+    [SerializeField] private Transform _playerBody;
 
-    private const string MOVEMENT_TWEEN_ID_SUFFIX = "MovementTweenID";
     private const float MOVEMENT_DURATION = 0.25f;
     private const Ease MOVEMENT_TWEEN_EASE = Ease.OutBack;
-
-    private const float OFFSET = 1f;     
+    private const string MOVEMENT_TWEEN_ID_SUFFIX = "MovementTweenID";    
 
     protected override void UpdateStack()
     {
@@ -23,11 +22,11 @@ public class PlayerStack : CubeStackBase
 
     private void UpdatePlayerBodyPosition()
     {
-        Vector3 localPosition = _playerBody.localPosition;
+        Vector3 localPosition = StackLocalBottomPosition;
         localPosition.y = Cubes.Count * OFFSET;
 
-        string tweenID = _playerBody.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
-        SetLocalPosition(_playerBody, localPosition, MOVEMENT_DURATION, tweenID);        
+        string tweenID = PlayerBody.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
+        SetLocalPosition(PlayerBody, localPosition, MOVEMENT_DURATION, tweenID);        
     }
 
     private void UpdateStackPosition() 
@@ -35,7 +34,7 @@ public class PlayerStack : CubeStackBase
         int lastIndex = Cubes.Count - 1;
         for (int i = 0; i < Cubes.Count; i++)
         {
-            Vector3 localPosition = StackParent.InverseTransformPoint(StackParent.position);
+            Vector3 localPosition = StackLocalBottomPosition;
             localPosition.y = OFFSET * (lastIndex - i);
 
             string tweenID = Cubes[i].transform.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
@@ -48,5 +47,5 @@ public class PlayerStack : CubeStackBase
     {
         DOTween.Kill(tweenID);
         target.DOLocalMove(localPosition, duration).SetId(tweenID).SetEase(MOVEMENT_TWEEN_EASE);
-    }
+    }   
 }
