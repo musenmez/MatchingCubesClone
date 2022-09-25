@@ -22,7 +22,7 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
     [HideInInspector]
     public UnityEvent OnStackUpdated = new UnityEvent();    
 
-    public void AddToStack(Cube cube)
+    public virtual void AddToStack(Cube cube)
     {
         if (Cubes.Contains(cube))
             return;
@@ -34,7 +34,7 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         UpdateStack();
     }
 
-    public void RemoveFromStack(Cube cube)
+    public virtual void RemoveFromStack(Cube cube)
     {
         if (!Cubes.Contains(cube))
             return;
@@ -53,13 +53,15 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
 
     private void SetTopPosition() 
     {
-        Vector3 worldPosition = StackLocalBottomPosition + Cubes.Count * OFFSET * Vector3.up;
+        Vector3 worldPosition = StackParent.InverseTransformPoint(StackLocalBottomPosition) + Cubes.Count * OFFSET * Vector3.up;
         StackLocalTopPosition = StackParent.TransformPoint(worldPosition);
+        Debug.Log("Top Position: " + StackLocalTopPosition);
     }
 
     private void SetBottomPosition() 
     {
-        Vector3 worldPosition = StackLocalTopPosition - Cubes.Count * OFFSET * Vector3.up;
+        Vector3 worldPosition = StackParent.InverseTransformPoint(StackLocalTopPosition) - Cubes.Count * OFFSET * Vector3.up;
         StackLocalBottomPosition = StackParent.TransformPoint(worldPosition);
+        Debug.Log("Bottom Position: " + StackLocalBottomPosition);
     }   
 }

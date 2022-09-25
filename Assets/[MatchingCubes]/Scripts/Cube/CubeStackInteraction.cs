@@ -7,17 +7,22 @@ public class CubeStackInteraction : MonoBehaviour
     private Cube _cube;
     private Cube Cube => _cube == null ? _cube = GetComponentInParent<Cube>() : _cube;
 
+    private CubeObstacleTarget _cubeObstacleTarget;
+    private CubeObstacleTarget CubeObstacleTarget => _cubeObstacleTarget == null ? _cubeObstacleTarget = GetComponentInParent<CubeObstacleTarget>() : _cubeObstacleTarget;
+
     private ICubeStack _cubeStack;
     private ICubeStack CubeStack => _cubeStack == null ? _cubeStack = Cube.Collector.GetComponentInParent<ICubeStack>() : _cubeStack;
 
     private void OnEnable()
     {
         Cube.OnCollected.AddListener(AddToStack);
+        CubeObstacleTarget.OnHit.AddListener(RemoveFromStack);
     }
 
     private void OnDisable()
     {
         Cube.OnCollected.RemoveListener(AddToStack);
+        CubeObstacleTarget.OnHit.RemoveListener(RemoveFromStack);
     }
 
     private void AddToStack()

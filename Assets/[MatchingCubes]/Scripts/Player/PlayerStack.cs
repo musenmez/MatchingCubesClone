@@ -11,7 +11,18 @@ public class PlayerStack : CubeStackBase
 
     private const float MOVEMENT_DURATION = 0.25f;
     private const Ease MOVEMENT_TWEEN_EASE = Ease.OutBack;
-    private const string MOVEMENT_TWEEN_ID_SUFFIX = "MovementTweenID";    
+    private const string MOVEMENT_TWEEN_ID_SUFFIX = "MovementTweenID";
+
+    public override void RemoveFromStack(Cube cube)
+    {
+        if (!Cubes.Contains(cube))
+            return;
+
+        string tweenID = cube.transform.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
+        DOTween.Kill(tweenID);
+
+        base.RemoveFromStack(cube);
+    }
 
     protected override void UpdateStack()
     {
@@ -23,7 +34,7 @@ public class PlayerStack : CubeStackBase
     private void UpdatePlayerBodyPosition()
     {
         Vector3 localPosition = StackLocalBottomPosition;
-        localPosition.y = Cubes.Count * OFFSET;
+        localPosition.y += Cubes.Count * OFFSET;
 
         string tweenID = PlayerBody.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
         SetLocalPosition(PlayerBody, localPosition, MOVEMENT_DURATION, tweenID);        
@@ -35,7 +46,7 @@ public class PlayerStack : CubeStackBase
         for (int i = 0; i < Cubes.Count; i++)
         {
             Vector3 localPosition = StackLocalBottomPosition;
-            localPosition.y = OFFSET * (lastIndex - i);
+            localPosition.y += OFFSET * (lastIndex - i);
 
             string tweenID = Cubes[i].transform.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
             float duration = i == lastIndex ? 0 : MOVEMENT_DURATION;
