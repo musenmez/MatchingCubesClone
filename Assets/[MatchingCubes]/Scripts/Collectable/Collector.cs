@@ -12,15 +12,26 @@ public class Collector : MonoBehaviour
         CheckCollectables(other);
     }
 
-    protected virtual void CheckCollectables(Collider other) 
+    protected virtual void CheckCollectables(Collider other)
     {
         if (!CanCollect)
             return;
 
         ICollectable collectable = other.GetComponentInParent<ICollectable>();
-        if (collectable != null && !collectable.IsCollected)
+        if (IsCollectableAvaiable(collectable))
         {
             collectable.Collect(this);
         }
+    }
+
+    protected bool IsCollectableAvaiable(ICollectable collectable)
+    {
+        if (collectable == null)
+            return false;
+
+        if (collectable.IsCollected)
+            return false;
+
+        return true;
     }
 }

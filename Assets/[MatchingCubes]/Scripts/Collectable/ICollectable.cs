@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface ICollectable
 {
-    bool IsCollected { get;}
+    bool IsCollected { get; }
     void Collect(Collector collector);
 }

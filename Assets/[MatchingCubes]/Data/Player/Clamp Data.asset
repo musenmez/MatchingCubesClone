@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c2439b068c84147885309dbac9b508, type: 3}
   m_Name: Clamp Data
   m_EditorClassIdentifier: 
-  MovementWidth: 3.5
+  MovementWidth: 3

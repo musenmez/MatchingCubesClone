@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerCollector : CubeCollector
+public class PlayerCollector : Collector
 {
     
 }
