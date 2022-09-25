@@ -52,7 +52,7 @@ public class PlayerStack : CubeStackBase
             float duration = i == lastIndex ? 0 : MOVEMENT_DURATION;
             SetLocalPosition(Cubes[i].transform, localPosition, duration, tweenID);
         }
-    }    
+    }
 
     private void SetLocalPosition(Transform target, Vector3 localPosition, float duration, string tweenID) 
     {

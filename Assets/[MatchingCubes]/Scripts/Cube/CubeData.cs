@@ -6,6 +6,5 @@ using UnityEngine;
 public class CubeData : ScriptableObject
 {
     public CubeType CubeType;
-    public Color TrailColor;
-    public GameObject CubePrefab;
+    public Color TrailColor;   
 }

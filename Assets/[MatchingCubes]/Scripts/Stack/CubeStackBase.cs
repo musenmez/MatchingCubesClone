@@ -38,10 +38,8 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
     {
         if (!Cubes.Contains(cube))
             return;
-
-        cube.transform.SetParent(null);
+        
         Cubes.Remove(cube);
-
         SetBottomPosition();
         UpdateStack();
     }

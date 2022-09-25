@@ -16,12 +16,14 @@ public class CubeStackInteraction : MonoBehaviour
     private void OnEnable()
     {
         Cube.OnCollected.AddListener(AddToStack);
+        Cube.OnMatched.AddListener(RemoveFromStack);
         CubeObstacleTarget.OnHit.AddListener(RemoveFromStack);
     }
 
     private void OnDisable()
     {
         Cube.OnCollected.RemoveListener(AddToStack);
+        Cube.OnMatched.RemoveListener(RemoveFromStack);
         CubeObstacleTarget.OnHit.RemoveListener(RemoveFromStack);
     }
 

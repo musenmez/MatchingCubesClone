@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public abstract class ObstacleTargetBase : MonoBehaviour, IObstacleTarget
 {
+    public virtual bool CanHittable => !IsHit;
     public bool IsHit { get; protected set; }
 
     [HideInInspector]
@@ -12,7 +13,7 @@ public abstract class ObstacleTargetBase : MonoBehaviour, IObstacleTarget
 
     public virtual void Hit()
     {
-        if (IsHit)
+        if (!CanHittable)
             return;
 
         IsHit = true;
