@@ -12,6 +12,8 @@ public class Cube : CollectableBase
 
     [HideInInspector]
     public UnityEvent OnMatched = new UnityEvent();
+    [HideInInspector]
+    public UnityEvent OnDestroyed= new UnityEvent();
 
     public void Match() 
     {
@@ -21,4 +23,10 @@ public class Cube : CollectableBase
         IsMatched = true;
         OnMatched.Invoke();
     }    
+
+    public void DestroyCube() 
+    {
+        OnDestroyed.Invoke();
+        Destroy(gameObject);
+    }
 }

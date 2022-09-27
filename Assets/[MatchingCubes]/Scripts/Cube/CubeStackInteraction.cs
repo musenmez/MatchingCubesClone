@@ -7,8 +7,8 @@ public class CubeStackInteraction : MonoBehaviour
     private Cube _cube;
     private Cube Cube => _cube == null ? _cube = GetComponentInParent<Cube>() : _cube;
 
-    private CubeObstacleTarget _cubeObstacleTarget;
-    private CubeObstacleTarget CubeObstacleTarget => _cubeObstacleTarget == null ? _cubeObstacleTarget = GetComponentInParent<CubeObstacleTarget>() : _cubeObstacleTarget;
+    private CubeHit _cubeObstacleTarget;
+    private CubeHit CubeObstacleTarget => _cubeObstacleTarget == null ? _cubeObstacleTarget = GetComponentInParent<CubeHit>() : _cubeObstacleTarget;
 
     private ICubeStack _cubeStack;
     private ICubeStack CubeStack => _cubeStack == null ? _cubeStack = Cube.Collector.GetComponentInParent<ICubeStack>() : _cubeStack;

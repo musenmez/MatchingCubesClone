@@ -28,10 +28,12 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
             return;
 
         cube.transform.SetParent(StackParent);
-        Cubes.Add(cube);
+        cube.transform.localPosition = StackLocalBottomPosition;
 
+        Cubes.Add(cube);
         SetTopPosition();
-        UpdateStack();
+        AddOffsetToStack();
+        OnStackUpdated.Invoke();
     }
 
     public virtual void RemoveFromStack(Cube cube)
@@ -41,25 +43,20 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         
         Cubes.Remove(cube);
         SetBottomPosition();
-        UpdateStack();
+        OnStackUpdated.Invoke();     
     }
 
-    protected virtual void UpdateStack() 
-    {
-        OnStackUpdated.Invoke();
-    }
+    protected abstract void AddOffsetToStack();
 
     private void SetTopPosition() 
     {
         Vector3 worldPosition = StackParent.InverseTransformPoint(StackLocalBottomPosition) + Cubes.Count * OFFSET * Vector3.up;
-        StackLocalTopPosition = StackParent.TransformPoint(worldPosition);
-        Debug.Log("Top Position: " + StackLocalTopPosition);
+        StackLocalTopPosition = StackParent.TransformPoint(worldPosition);      
     }
 
     private void SetBottomPosition() 
     {
         Vector3 worldPosition = StackParent.InverseTransformPoint(StackLocalTopPosition) - Cubes.Count * OFFSET * Vector3.up;
-        StackLocalBottomPosition = StackParent.TransformPoint(worldPosition);
-        Debug.Log("Bottom Position: " + StackLocalBottomPosition);
+        StackLocalBottomPosition = StackParent.TransformPoint(worldPosition);       
     }   
 }
