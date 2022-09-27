@@ -12,8 +12,9 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
     public Vector3 StackLocalTopPosition { get => _stackLocalTopPosition; protected set => _stackLocalTopPosition = value; }
     
     private Vector3 _stackLocalBottomPosition = Vector3.zero;
-    public Vector3 StackLocalBottomPosition { get => _stackLocalBottomPosition; protected set => _stackLocalBottomPosition = value; }
-    
+    public Vector3 StackLocalBottomPosition { get => _stackLocalBottomPosition; protected set => _stackLocalBottomPosition = value; }    
+    public Cube BottomCube { get; private set; }
+
     public Transform StackParent => _stackParent;
     [SerializeField] private Transform _stackParent;
 
@@ -33,6 +34,8 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         Cubes.Add(cube);
         SetTopPosition();
         AddOffsetToStack();
+
+        BottomCube = Cubes[Cubes.Count - 1];
         OnStackUpdated.Invoke();
     }
 
@@ -43,6 +46,8 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         
         Cubes.Remove(cube);
         SetBottomPosition();
+
+        BottomCube = Cubes.Count == 0 ? null : Cubes[Cubes.Count - 1];
         OnStackUpdated.Invoke();     
     }
 
