@@ -12,8 +12,12 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
     public Vector3 StackLocalTopPosition { get => _stackLocalTopPosition; protected set => _stackLocalTopPosition = value; }
     
     private Vector3 _stackLocalBottomPosition = Vector3.zero;
-    public Vector3 StackLocalBottomPosition { get => _stackLocalBottomPosition; protected set => _stackLocalBottomPosition = value; }    
-    public Cube BottomCube { get; private set; }
+    public Vector3 StackLocalBottomPosition { get => _stackLocalBottomPosition; protected set => _stackLocalBottomPosition = value; }
+
+    private CubeType _lastCubeType = CubeType.None;
+    public CubeType LastCubeType { get => _lastCubeType; private set => _lastCubeType = value; }
+
+    public Cube BottomCube { get; private set; }  
 
     public Transform StackParent => _stackParent;
     [SerializeField] private Transform _stackParent;
@@ -21,7 +25,9 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
     protected const float OFFSET = 1f;
 
     [HideInInspector]
-    public UnityEvent OnStackUpdated = new UnityEvent();    
+    public UnityEvent OnStackUpdated = new UnityEvent();
+    [HideInInspector]
+    public UnityEvent OnLastCubeTypeChanged = new UnityEvent();
 
     public virtual void AddToStack(Cube cube)
     {
@@ -36,6 +42,7 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         AddOffsetToStack();
 
         BottomCube = Cubes[Cubes.Count - 1];
+        CheckLastCubeType();
         OnStackUpdated.Invoke();
     }
 
@@ -48,6 +55,7 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         SetBottomPosition();
 
         BottomCube = Cubes.Count == 0 ? null : Cubes[Cubes.Count - 1];
+        CheckLastCubeType();
         OnStackUpdated.Invoke();     
     }
 
@@ -63,5 +71,15 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
     {
         Vector3 worldPosition = StackParent.InverseTransformPoint(StackLocalTopPosition) - Cubes.Count * OFFSET * Vector3.up;
         StackLocalBottomPosition = StackParent.TransformPoint(worldPosition);       
-    }   
+    }
+
+    private void CheckLastCubeType()
+    {
+        CubeType cubeType = BottomCube != null ? BottomCube.CubeType : CubeType.None;
+        if (LastCubeType != cubeType)
+        {
+            LastCubeType = cubeType;
+            OnLastCubeTypeChanged.Invoke();
+        }
+    }
 }

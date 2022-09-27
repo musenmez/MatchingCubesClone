@@ -1127,6 +1127,37 @@ Transform:
   m_Father: {fileID: 4083799624840656989}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4293169238836280169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7813998513828178227}
+  m_Layer: 6
+  m_Name: Trail Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7813998513828178227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4293169238836280169}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4310800654325521187}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4310800654325521184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1176,7 @@ GameObject:
   - component: {fileID: 2139731792886270541}
   - component: {fileID: 7263700437493394050}
   - component: {fileID: 3576601624503463591}
+  - component: {fileID: 6836594766761446024}
   m_Layer: 6
   m_Name: P_Player
   m_TagString: Untagged
@@ -1167,6 +1199,7 @@ Transform:
   - {fileID: 4310800655415731304}
   - {fileID: 6822093467911436254}
   - {fileID: 610139521016271760}
+  - {fileID: 7813998513828178227}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1250,6 +1283,9 @@ MonoBehaviour:
   OnStackUpdated:
     m_PersistentCalls:
       m_Calls: []
+  OnLastCubeTypeChanged:
+    m_PersistentCalls:
+      m_Calls: []
   _playerBody: {fileID: 4310800655415731304}
 --- !u!114 &1080484755128663562
 MonoBehaviour:
@@ -1312,6 +1348,20 @@ MonoBehaviour:
   OnGroundedStatusChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6836594766761446024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310800654325521184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a9b33e8f65edb40a6c2ae4bde753f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _trailParent: {fileID: 7813998513828178227}
+  _trailPrefab: {fileID: 2619963483418477349, guid: 353f29ec971ce5742865ffd903441c31, type: 3}
 --- !u!1 &4310800655415731305
 GameObject:
   m_ObjectHideFlags: 0
