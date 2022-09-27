@@ -43,11 +43,12 @@ public class PlayerCubeMatch : MonoBehaviour
         if (PlayerStack.Cubes.Count <= 1)
             return;
 
+        int lastIndex = PlayerStack.Cubes.Count - 1;
         int matchCount = 1;
-        CubeType previousType = PlayerStack.Cubes[0].CubeType;
-        List<Cube> matchedCubes = new List<Cube> {PlayerStack.Cubes[0]};            
+        CubeType previousType = PlayerStack.Cubes[lastIndex].CubeType;
+        List<Cube> matchedCubes = new List<Cube> {PlayerStack.Cubes[lastIndex] };            
 
-        for (int i = 1; i < PlayerStack.Cubes.Count; i++)
+        for (int i = lastIndex - 1; i >= 0; i--)
         {
             Cube cube = PlayerStack.Cubes[i];           
 

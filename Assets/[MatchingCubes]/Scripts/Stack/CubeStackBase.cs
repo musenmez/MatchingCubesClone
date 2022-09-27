@@ -16,13 +16,12 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
 
     private CubeType _lastCubeType = CubeType.None;
     public CubeType LastCubeType { get => _lastCubeType; private set => _lastCubeType = value; }
-
     public Cube BottomCube { get; private set; }  
 
     public Transform StackParent => _stackParent;
     [SerializeField] private Transform _stackParent;
 
-    protected const float OFFSET = 1f;
+    public const float OFFSET = 1f;
 
     [HideInInspector]
     public UnityEvent OnStackUpdated = new UnityEvent();
@@ -40,10 +39,7 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         Cubes.Add(cube);
         SetTopPosition();
         AddOffsetToStack();
-
-        BottomCube = Cubes[Cubes.Count - 1];
-        CheckLastCubeType();
-        OnStackUpdated.Invoke();
+        UpdateStack();
     }
 
     public virtual void RemoveFromStack(Cube cube)
@@ -53,10 +49,14 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         
         Cubes.Remove(cube);
         SetBottomPosition();
+        UpdateStack();
+    }
 
+    public virtual void UpdateStack() 
+    {
         BottomCube = Cubes.Count == 0 ? null : Cubes[Cubes.Count - 1];
         CheckLastCubeType();
-        OnStackUpdated.Invoke();     
+        OnStackUpdated.Invoke();
     }
 
     protected abstract void AddOffsetToStack();
