@@ -14,17 +14,21 @@ public class FeverModeManager : Singleton<FeverModeManager>
     {
         EventManager.OnSceneLoaded.AddListener(ResetValues);
         EventManager.OnSpeedUpFloorInteracted.AddListener(EnableFeverMode);
+        EventManager.OnRampJumpingStarted.AddListener(EnableFeverMode);
+        EventManager.OnRampJumpingCompleted.AddListener(DisableFeverMode);
     }
 
     private void OnDisable()
     {
         EventManager.OnSceneLoaded.RemoveListener(ResetValues);
         EventManager.OnSpeedUpFloorInteracted.RemoveListener(EnableFeverMode);
+        EventManager.OnRampJumpingStarted.RemoveListener(EnableFeverMode);
+        EventManager.OnRampJumpingCompleted.RemoveListener(DisableFeverMode);
     }
 
     private void EnableFeverMode() 
     {
-        ResetDisableCountdown();
+        DisableCountdown();
 
         if (IsFeverModeEnabled)
             return;
@@ -42,7 +46,7 @@ public class FeverModeManager : Singleton<FeverModeManager>
         EventManager.OnFeverModeDisabled.Invoke();
     }
 
-    private void ResetDisableCountdown() 
+    private void DisableCountdown() 
     {
         if (_disableCoroutine != null)
             StopCoroutine(_disableCoroutine);

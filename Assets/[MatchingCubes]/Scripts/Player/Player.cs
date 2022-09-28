@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+
     public bool IsControllable { get; private set; }
     public bool CanMoveForward { get; private set; }
 
@@ -45,12 +46,12 @@ public class Player : MonoBehaviour
     }
 
     private void OnJumpingStarted() 
-    {
+    {        
         CanMoveForward = false;
     }
 
     private void OnJumpingCompleted() 
-    {
+    {        
         CanMoveForward = true;
     }
 }
