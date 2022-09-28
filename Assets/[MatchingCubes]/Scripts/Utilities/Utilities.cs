@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public static class Utilities
 {   
@@ -9,7 +10,7 @@ public static class Utilities
     {
         for (int i = 0; i < list.Count; i++)
         {
-            int randomIndex = Random.Range(i, list.Count);
+            int randomIndex = UnityEngine.Random.Range(i, list.Count);
             T value = list[i];
             list[i] = list[randomIndex];
             list[randomIndex] = value;
@@ -34,5 +35,16 @@ public static class Utilities
         var ab = Vector3.Lerp(a, b, t);
         var bc = Vector3.Lerp(b, c, t);
         return Vector3.Lerp(ab, bc, t);
+    }
+
+    public static Coroutine ExecuteAfterDelay(MonoBehaviour behaviour, float delay, Action action) 
+    {       
+        return behaviour.StartCoroutine(ExecuteCoroutine(delay, action));
+    }
+
+    private static IEnumerator ExecuteCoroutine(float delay, Action action) 
+    {
+        yield return new WaitForSeconds(delay);
+        action?.Invoke();
     }
 }

@@ -12,7 +12,7 @@ public class Ramp : InteractableBase
     [SerializeField] private Transform _movementParent;
 
     private const Ease MOVEMENT_EASE = Ease.Linear;
-    private const float MOVEMENT_SPEED = 10f;
+    private const float MOVEMENT_SPEED = 12f;
 
     private const float PATH_HEIGHT = 8f;
     private const int PATH_RESOLUTION = 20;
