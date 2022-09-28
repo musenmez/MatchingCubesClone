@@ -11,7 +11,7 @@ public abstract class GroundCheckBase : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
 
     protected const float ORIGIN_HEIGHT_OFFSET = 5f;
-    protected const float RAYCAST_DISTANCE = 5.5f;
+    protected const float RAYCAST_DISTANCE = 5.25f;
 
     [HideInInspector]
     public UnityEvent OnGroundedStatusChanged = new UnityEvent();

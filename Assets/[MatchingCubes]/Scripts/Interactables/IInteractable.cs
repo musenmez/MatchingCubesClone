@@ -6,5 +6,5 @@ public interface IInteractable
 {
     bool IsInteracted { get; }
 
-    void Interact();
+    void Interact(Interactor interactor);
 }

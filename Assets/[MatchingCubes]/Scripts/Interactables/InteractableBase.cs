@@ -6,16 +6,18 @@ using UnityEngine.Events;
 public abstract class InteractableBase : MonoBehaviour, IInteractable
 {
     public bool IsInteracted { get; private set; }
+    public Interactor Interactor { get; private set; }
 
     [HideInInspector]
     public UnityEvent OnInteracted = new UnityEvent();
 
-    public void Interact()
+    public void Interact(Interactor interactor)
     {
         if (IsInteracted)
             return;
 
         IsInteracted = true;
+        Interactor = interactor;
         InteractAction();
         OnInteracted.Invoke();
     }

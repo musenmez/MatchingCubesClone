@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
             return;
 
         LevelManager.Instance.OnLevelStarted.AddListener(ActivatePlayer);
+        EventManager.OnRampJumpingStarted.AddListener(OnJumpingStarted);
+        EventManager.OnRampJumpingCompleted.AddListener(OnJumpingCompleted);
     }
 
     private void OnDisable()
@@ -31,6 +33,8 @@ public class Player : MonoBehaviour
             return;
 
         LevelManager.Instance.OnLevelStarted.RemoveListener(ActivatePlayer);
+        EventManager.OnRampJumpingStarted.RemoveListener(OnJumpingStarted);
+        EventManager.OnRampJumpingCompleted.RemoveListener(OnJumpingCompleted);
     }  
 
     private void ActivatePlayer() 
@@ -38,5 +42,15 @@ public class Player : MonoBehaviour
         IsControllable = true;
         CanMoveForward = true;
         OnPlayerActivated.Invoke();
+    }
+
+    private void OnJumpingStarted() 
+    {
+        CanMoveForward = false;
+    }
+
+    private void OnJumpingCompleted() 
+    {
+        CanMoveForward = true;
     }
 }

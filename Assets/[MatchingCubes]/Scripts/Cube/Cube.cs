@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 public class Cube : CollectableBase
 {
+    private Rigidbody _rigidbody;
+    public Rigidbody Rigidbody => _rigidbody == null ? _rigidbody = GetComponentInParent<Rigidbody>() : _rigidbody;
+
     public bool IsMatched { get; private set; }
     public CubeType CubeType => _cubeType;
 
