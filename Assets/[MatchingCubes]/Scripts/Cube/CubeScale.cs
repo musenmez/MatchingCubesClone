@@ -12,7 +12,7 @@ public class CubeScale : MonoBehaviour
     [SerializeField] private Transform _visual;
 
     private const float MIN_SCALE_MULTIPLIER = 0.01f;
-    private const float SCALE_DURATION = 0.15f;
+    private const float SCALE_DURATION = 0.2f;
     private const Ease SCALE_EASE = Ease.Linear;
 
     private const float PUNCH_STRENGTH = 0.2f;

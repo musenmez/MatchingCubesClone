@@ -7,8 +7,8 @@ using System.Linq;
 
 public class PlayerStack : CubeStackBase
 {
-    //private const float MOVEMENT_DURATION = 0.25f;
-    //private const Ease MOVEMENT_TWEEN_EASE = Ease.OutBack;
+    public const float MOVEMENT_DURATION = 0.25f;
+    public const Ease MOVEMENT_TWEEN_EASE = Ease.Linear;
     private const string MOVEMENT_TWEEN_ID_SUFFIX = "MovementTweenID";
 
     [HideInInspector]
@@ -57,14 +57,14 @@ public class PlayerStack : CubeStackBase
         if (Cubes.Count <= 1)
             return;
 
+        int lastIndex = Cubes.Count - 1;
         for (int i = Cubes.Count - 2; i >= 0 ; i--)
         {
-            Vector3 localPosition = Cubes[i + 1].transform.localPosition;
-            localPosition.y += OFFSET;
-            Cubes[i].transform.localPosition = localPosition;
+            Vector3 localPosition = Cubes[lastIndex].transform.localPosition;
+            localPosition.y += (OFFSET * (lastIndex - i));            
 
-            //string tweenID = Cubes[i].transform.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
-            //Utilities.LocalMovementTween(Cubes[i].transform, localPosition, MOVEMENT_DURATION, tweenID, MOVEMENT_TWEEN_EASE);
+            string tweenID = Cubes[i].transform.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
+            Utilities.LocalMovementTween(Cubes[i].transform, localPosition, MOVEMENT_DURATION, tweenID, MOVEMENT_TWEEN_EASE, onStart: Cubes[i].OnStackMovementStarted, onComplete: Cubes[i].OnStackMovementCompleted);
         }
     }
 

@@ -7,7 +7,7 @@ public class Cube : CollectableBase
 {
     private Rigidbody _rigidbody;
     public Rigidbody Rigidbody => _rigidbody == null ? _rigidbody = GetComponentInParent<Rigidbody>() : _rigidbody;
-
+    public bool IsBottom { get; set; }
     public bool IsMatched { get; private set; }
     public CubeType CubeType => _cubeType;
 
@@ -31,5 +31,18 @@ public class Cube : CollectableBase
     {
         OnDestroyed.Invoke();
         Destroy(gameObject);
+    }
+
+    public void OnStackMovementStarted() 
+    {
+        Rigidbody.isKinematic = true;
+    }
+
+    public void OnStackMovementCompleted() 
+    {
+        if (IsBottom && FeverModeManager.Instance.IsFeverModeEnabled)
+            return;
+
+        Rigidbody.isKinematic = false;
     }
 }

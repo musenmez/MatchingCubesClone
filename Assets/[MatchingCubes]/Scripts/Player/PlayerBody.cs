@@ -5,9 +5,6 @@ using DG.Tweening;
 
 public class PlayerBody : MonoBehaviour
 {
-    private Collider _collider;
-    private Collider Collider => _collider == null ? _collider = Body.GetComponentInChildren<Collider>() : _collider;
-
     private Rigidbody _rigidbody;
     private Rigidbody Rigidbody => _rigidbody == null ? _rigidbody = Body.GetComponentInChildren<Rigidbody>() : _rigidbody;
 
@@ -17,8 +14,8 @@ public class PlayerBody : MonoBehaviour
     public Transform Body => _body;
     [SerializeField] private Transform _body;
 
-    private const float MOVEMENT_SPEED = 0.1f;
-    private const Ease MOVEMENT_TWEEN_EASE = Ease.Linear;
+    private const float MOVEMENT_DURATION = PlayerStack.MOVEMENT_DURATION;
+    private const Ease MOVEMENT_TWEEN_EASE = PlayerStack.MOVEMENT_TWEEN_EASE;
     private const string MOVEMENT_TWEEN_ID_SUFFIX = "MovementTweenID";
 
     private string _movementTweenID;
@@ -47,21 +44,21 @@ public class PlayerBody : MonoBehaviour
         if (PlayerStack.Cubes.Count < 1)
             return;
 
-        Vector3 localPosition = PlayerStack.Cubes[0].transform.localPosition;
-        localPosition.y += PlayerStack.OFFSET;
-        Body.transform.localPosition = localPosition;
-        //Utilities.LocalMovementTween(Body, localPosition, MOVEMENT_SPEED, _movementTweenID, MOVEMENT_TWEEN_EASE, false, () => OnStackMovementStarted(), () => OnStackMovementCompleted());
+        Vector3 localPosition = PlayerStack.Cubes[PlayerStack.Cubes.Count - 1].transform.localPosition;
+        localPosition.y += PlayerStack.OFFSET * PlayerStack.Cubes.Count;       
+        Utilities.LocalMovementTween(Body, localPosition, MOVEMENT_DURATION, _movementTweenID, MOVEMENT_TWEEN_EASE, false, OnStackMovementStarted, OnStackMovementCompleted);
     }    
 
     private void OnStackMovementStarted() 
-    {
-        Collider.isTrigger = true;
+    {       
         Rigidbody.isKinematic = true;
     }
 
     private void OnStackMovementCompleted() 
     {
-        Collider.isTrigger = false;
+        if (FeverModeManager.Instance.IsFeverModeEnabled && PlayerStack.Cubes.Count == 0)
+            return;
+        
         Rigidbody.isKinematic = false;
     }
 
@@ -74,7 +71,7 @@ public class PlayerBody : MonoBehaviour
     }
 
     private void OnJumpingCompleted() 
-    {
+    {        
         Rigidbody.isKinematic = false;
     }
 }

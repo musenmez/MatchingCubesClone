@@ -47,12 +47,21 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
 
     public virtual void UpdateStack() 
     {
-        BottomCube = Cubes.Count == 0 ? null : Cubes[Cubes.Count - 1];
+        SetBottomCube();
         CheckLastCubeType();
         OnStackUpdated.Invoke();
-    }
+    }     
 
-    protected abstract void AddOffsetToStack();    
+    private void SetBottomCube() 
+    {
+        Cube previousBottom = BottomCube;
+        if (previousBottom != null)
+            previousBottom.IsBottom = false;
+
+        BottomCube = Cubes.Count == 0 ? null : Cubes[Cubes.Count - 1];
+        if (BottomCube != null)
+            BottomCube.IsBottom = true;
+    }
 
     private void CheckLastCubeType()
     {
@@ -63,4 +72,6 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
             OnLastCubeTypeChanged.Invoke();
         }
     }
+
+    protected abstract void AddOffsetToStack();
 }
