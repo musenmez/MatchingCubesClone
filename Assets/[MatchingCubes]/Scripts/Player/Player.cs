@@ -6,11 +6,14 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+    public bool IsFailed { get; private set; }
     public bool IsControllable { get; private set; }
     public bool CanMoveForward { get; private set; }
 
     [HideInInspector]
     public UnityEvent OnPlayerActivated = new UnityEvent();
+    [HideInInspector]
+    public UnityEvent OnPlayerFailed = new UnityEvent();
 
     private void Awake()
     {        
@@ -36,6 +39,17 @@ public class Player : MonoBehaviour
         EventManager.OnRampJumpingStarted.RemoveListener(OnJumpingStarted);
         EventManager.OnRampJumpingCompleted.RemoveListener(OnJumpingCompleted);
     }  
+
+    public void TriggerFail() 
+    {
+        if (IsFailed)
+            return;
+
+        IsFailed = true;
+        IsControllable = false;
+        CanMoveForward = false;
+        OnPlayerFailed.Invoke();
+    }
 
     private void ActivatePlayer() 
     {
