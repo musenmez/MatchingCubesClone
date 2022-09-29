@@ -24,6 +24,8 @@ public class FeverModeManager : Singleton<FeverModeManager>
         EventManager.OnRampJumpingStarted.AddListener(OnJumpingStarted);
         EventManager.OnRampJumpingCompleted.AddListener(OnJumpingCompleted);
         EventManager.OnPlayerMatchedCubes.AddListener(CheckMatchCount);
+        EventManager.OnLevelFailed.AddListener(DisableFeverMode);
+        EventManager.OnLevelCompleted.AddListener(DisableFeverMode);
     }
 
     private void OnDisable()
@@ -33,6 +35,8 @@ public class FeverModeManager : Singleton<FeverModeManager>
         EventManager.OnRampJumpingStarted.RemoveListener(OnJumpingStarted);
         EventManager.OnRampJumpingCompleted.RemoveListener(OnJumpingCompleted);
         EventManager.OnPlayerMatchedCubes.RemoveListener(CheckMatchCount);
+        EventManager.OnLevelFailed.RemoveListener(DisableFeverMode);
+        EventManager.OnLevelCompleted.RemoveListener(DisableFeverMode);
     }
     
     private void CheckMatchCount() 

@@ -41,6 +41,11 @@ public class LevelManager : Singleton<LevelManager>
         LoadScene(CurrentLevelIndex);
     }   
 
+    public void NextLevel() 
+    {
+        LoadScene(NextLevelIndex);
+    }
+
     private void StartLevel() 
     {
         if (IsLevelStarted)

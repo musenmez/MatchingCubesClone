@@ -20,6 +20,6 @@ public class LevelCompletePanel : FadePanelBase
 
     public void NextButtonAction()
     {
-        LevelManager.Instance.RestartLevel();
+        LevelManager.Instance.NextLevel();
     }
 }
