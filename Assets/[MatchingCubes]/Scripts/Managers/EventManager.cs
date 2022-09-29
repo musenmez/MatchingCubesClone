@@ -22,4 +22,6 @@ public static class EventManager
 
     public static UnityEvent OnLevelCompleted = new UnityEvent();
     public static UnityEvent OnLevelFailed = new UnityEvent();
+
+    public static UnityEvent OnCoinDataChanged = new UnityEvent();
 }

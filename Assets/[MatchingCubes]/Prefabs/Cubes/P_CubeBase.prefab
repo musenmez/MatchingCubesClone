@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 2406317257414602726}
   - component: {fileID: 3414397358778247721}
   - component: {fileID: 8274176800254966986}
+  - component: {fileID: 382202560315306339}
   m_Layer: 8
   m_Name: P_CubeBase
   m_TagString: Untagged
@@ -309,3 +310,15 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &382202560315306339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8084739147709245848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616516e29c1e48741b45110306843c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
