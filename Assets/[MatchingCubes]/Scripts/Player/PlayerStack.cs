@@ -7,8 +7,8 @@ using System.Linq;
 
 public class PlayerStack : CubeStackBase
 {
-    private const float MOVEMENT_DURATION = 0.25f;
-    private const Ease MOVEMENT_TWEEN_EASE = Ease.OutBack;
+    //private const float MOVEMENT_DURATION = 0.25f;
+    //private const Ease MOVEMENT_TWEEN_EASE = Ease.OutBack;
     private const string MOVEMENT_TWEEN_ID_SUFFIX = "MovementTweenID";
 
     [HideInInspector]
@@ -53,14 +53,18 @@ public class PlayerStack : CubeStackBase
     }   
 
     private void UpdateStackPosition() 
-    {        
-        for (int i = 0; i < Cubes.Count - 1; i++)
-        {
-            Vector3 localPosition = Cubes[i].transform.localPosition;
-            localPosition.y += OFFSET;
+    {
+        if (Cubes.Count <= 1)
+            return;
 
-            string tweenID = Cubes[i].transform.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
-            Utilities.LocalMovementTween(Cubes[i].transform, localPosition, MOVEMENT_DURATION, tweenID, MOVEMENT_TWEEN_EASE);
+        for (int i = Cubes.Count - 2; i >= 0 ; i--)
+        {
+            Vector3 localPosition = Cubes[i + 1].transform.localPosition;
+            localPosition.y += OFFSET;
+            Cubes[i].transform.localPosition = localPosition;
+
+            //string tweenID = Cubes[i].transform.GetInstanceID() + MOVEMENT_TWEEN_ID_SUFFIX;
+            //Utilities.LocalMovementTween(Cubes[i].transform, localPosition, MOVEMENT_DURATION, tweenID, MOVEMENT_TWEEN_EASE);
         }
     }
 

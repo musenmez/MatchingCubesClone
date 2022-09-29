@@ -8,15 +8,22 @@ public class FeverModeManager : Singleton<FeverModeManager>
     public bool IsFeverModeLocked { get; private set; }
 
     private const float FEVER_MODE_DURATION = 4f;
-   
-    private Coroutine _disableCoroutine = null;    
+
+    private const float MATCH_COUNT_RESET_DELAY = 4f;
+    private const int MATCH_COUNT_THRESHOLD = 3;
+    
+    private Coroutine _disableCoroutine = null;
+    private Coroutine _matchCountCoroutine = null;
+
+    private int _currentMatchCount;
 
     private void OnEnable()
     {
         EventManager.OnSceneLoaded.AddListener(ResetValues);
         EventManager.OnSpeedUpFloorInteracted.AddListener(EnableFeverMode);
         EventManager.OnRampJumpingStarted.AddListener(OnJumpingStarted);
-        EventManager.OnRampJumpingCompleted.AddListener(OnJumpingCompleted);       
+        EventManager.OnRampJumpingCompleted.AddListener(OnJumpingCompleted);
+        EventManager.OnPlayerMatchedCubes.AddListener(CheckMatchCount);
     }
 
     private void OnDisable()
@@ -24,9 +31,21 @@ public class FeverModeManager : Singleton<FeverModeManager>
         EventManager.OnSceneLoaded.RemoveListener(ResetValues);
         EventManager.OnSpeedUpFloorInteracted.RemoveListener(EnableFeverMode);
         EventManager.OnRampJumpingStarted.RemoveListener(OnJumpingStarted);
-        EventManager.OnRampJumpingCompleted.RemoveListener(OnJumpingCompleted);       
+        EventManager.OnRampJumpingCompleted.RemoveListener(OnJumpingCompleted);
+        EventManager.OnPlayerMatchedCubes.RemoveListener(CheckMatchCount);
     }
-   
+    
+    private void CheckMatchCount() 
+    {
+        MatchCountResetCountdown();
+
+        _currentMatchCount++;
+        if (_currentMatchCount >= MATCH_COUNT_THRESHOLD)
+        {
+            ResetMatchCount();
+            EnableFeverMode();
+        }
+    }
   
     private void EnableFeverMode() 
     {
@@ -57,6 +76,19 @@ public class FeverModeManager : Singleton<FeverModeManager>
             StopCoroutine(_disableCoroutine);
 
         _disableCoroutine = Utilities.ExecuteAfterDelay(this, FEVER_MODE_DURATION, () => DisableFeverMode());
+    }
+
+    private void MatchCountResetCountdown() 
+    {
+        if (_matchCountCoroutine != null)
+            StopCoroutine(_matchCountCoroutine);
+
+        _matchCountCoroutine = Utilities.ExecuteAfterDelay(this, MATCH_COUNT_RESET_DELAY, () => ResetMatchCount());
+    }
+
+    private void ResetMatchCount() 
+    {
+        _currentMatchCount = 0;
     }
 
     private void OnJumpingStarted() 

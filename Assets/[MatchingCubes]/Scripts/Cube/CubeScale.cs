@@ -12,8 +12,8 @@ public class CubeScale : MonoBehaviour
     [SerializeField] private Transform _visual;
 
     private const float MIN_SCALE_MULTIPLIER = 0.01f;
-    private const float SCALE_DURATION = 0.3f;
-    private const Ease SCALE_EASE = Ease.OutBack;
+    private const float SCALE_DURATION = 0.15f;
+    private const Ease SCALE_EASE = Ease.Linear;
 
     private const float PUNCH_STRENGTH = 0.2f;
     private const float PUNCH_DURATION = 0.3f;
@@ -61,8 +61,8 @@ public class CubeScale : MonoBehaviour
     private void ScaleTween(Vector3 from, Vector3 to, float duration) 
     {
         KillTweens();
-        _body.localScale = from;
-        _body.DOScale(to, duration).SetEase(SCALE_EASE).SetId(_scaleTweenID);
+        _visual.localScale = from;
+        _visual.DOScale(to, duration).SetEase(SCALE_EASE).SetId(_scaleTweenID);
     }
 
     private void PunchScaleTween() 

@@ -6,16 +6,11 @@ using UnityEngine.Events;
 public abstract class CubeStackBase : MonoBehaviour, ICubeStack
 {
     private List<Cube> _cubes = new List<Cube>();
-    public List<Cube> Cubes { get => _cubes; protected set => _cubes = value; }
-
-    private Vector3 _stackLocalTopPosition = Vector3.zero;
-    public Vector3 StackLocalTopPosition { get => _stackLocalTopPosition; protected set => _stackLocalTopPosition = value; }
-    
-    private Vector3 _stackLocalBottomPosition = Vector3.zero;
-    public Vector3 StackLocalBottomPosition { get => _stackLocalBottomPosition; protected set => _stackLocalBottomPosition = value; }
+    public List<Cube> Cubes { get => _cubes; protected set => _cubes = value; }   
 
     private CubeType _lastCubeType = CubeType.None;
     public CubeType LastCubeType { get => _lastCubeType; private set => _lastCubeType = value; }
+
     public Cube BottomCube { get; private set; }  
 
     public Transform StackParent => _stackParent;
@@ -34,10 +29,9 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
             return;
 
         cube.transform.SetParent(StackParent);
-        cube.transform.localPosition = StackLocalBottomPosition;
+        cube.transform.localPosition = Vector3.zero;
 
-        Cubes.Add(cube);
-        SetTopPosition();
+        Cubes.Add(cube);     
         AddOffsetToStack();
         UpdateStack();
     }
@@ -47,8 +41,7 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         if (!Cubes.Contains(cube))
             return;
         
-        Cubes.Remove(cube);
-        SetBottomPosition();
+        Cubes.Remove(cube);       
         UpdateStack();
     }
 
@@ -59,19 +52,7 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         OnStackUpdated.Invoke();
     }
 
-    protected abstract void AddOffsetToStack();
-
-    private void SetTopPosition() 
-    {
-        Vector3 worldPosition = StackParent.InverseTransformPoint(StackLocalBottomPosition) + Cubes.Count * OFFSET * Vector3.up;
-        StackLocalTopPosition = StackParent.TransformPoint(worldPosition);      
-    }
-
-    private void SetBottomPosition() 
-    {
-        Vector3 worldPosition = StackParent.InverseTransformPoint(StackLocalTopPosition) - Cubes.Count * OFFSET * Vector3.up;
-        StackLocalBottomPosition = StackParent.TransformPoint(worldPosition);       
-    }
+    protected abstract void AddOffsetToStack();    
 
     private void CheckLastCubeType()
     {

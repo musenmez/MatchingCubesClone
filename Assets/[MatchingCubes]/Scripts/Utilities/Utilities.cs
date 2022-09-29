@@ -17,10 +17,10 @@ public static class Utilities
         }
     }
 
-    public static void LocalMovementTween(Transform target, Vector3 localPosition, float duration, string tweenID, Ease tweenEase)
+    public static void LocalMovementTween(Transform target, Vector3 localPosition, float duration, string tweenID, Ease tweenEase, bool isSpeedBased = false, Action onStart = null, Action onComplete = null)
     {
         DOTween.Kill(tweenID);
-        target.DOLocalMove(localPosition, duration).SetId(tweenID).SetEase(tweenEase);
+        target.DOLocalMove(localPosition, duration).SetUpdate(UpdateType.Fixed).SetSpeedBased(isSpeedBased).SetId(tweenID).SetEase(tweenEase).OnStart(() => onStart?.Invoke()).OnComplete(() => onComplete?.Invoke());
     }
 
     public static Vector3 WorldToUISpace(Canvas canvas, Vector3 worldPosition)

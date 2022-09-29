@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Movement Data
   m_EditorClassIdentifier: 
   DefaultSpeed: 6
-  FeverSpeed: 12
+  FeverSpeed: 15
   LavaSpeed: 4
