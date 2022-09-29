@@ -79,5 +79,7 @@ public class PlayerCubeMatch : MonoBehaviour
         {
             cube.Match();
         }
+
+        EventManager.OnPlayerMatchedCubes.Invoke();
     }
 }

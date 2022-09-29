@@ -17,4 +17,5 @@ public static class EventManager
 
     public static UnityEvent OnFeverModeEnabled = new UnityEvent();
     public static UnityEvent OnFeverModeDisabled = new UnityEvent();
+    public static UnityEvent OnPlayerMatchedCubes = new UnityEvent();
 }

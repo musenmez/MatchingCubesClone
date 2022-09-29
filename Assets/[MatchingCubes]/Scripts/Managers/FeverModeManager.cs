@@ -5,27 +5,29 @@ using UnityEngine;
 public class FeverModeManager : Singleton<FeverModeManager>
 {
     public bool IsFeverModeEnabled { get; private set; }
+    public bool IsFeverModeLocked { get; private set; }
 
     private const float FEVER_MODE_DURATION = 4f;
-
-    private Coroutine _disableCoroutine = null;
+   
+    private Coroutine _disableCoroutine = null;    
 
     private void OnEnable()
     {
         EventManager.OnSceneLoaded.AddListener(ResetValues);
         EventManager.OnSpeedUpFloorInteracted.AddListener(EnableFeverMode);
-        EventManager.OnRampJumpingStarted.AddListener(EnableFeverMode);
-        EventManager.OnRampJumpingCompleted.AddListener(DisableFeverMode);
+        EventManager.OnRampJumpingStarted.AddListener(OnJumpingStarted);
+        EventManager.OnRampJumpingCompleted.AddListener(OnJumpingCompleted);       
     }
 
     private void OnDisable()
     {
         EventManager.OnSceneLoaded.RemoveListener(ResetValues);
         EventManager.OnSpeedUpFloorInteracted.RemoveListener(EnableFeverMode);
-        EventManager.OnRampJumpingStarted.RemoveListener(EnableFeverMode);
-        EventManager.OnRampJumpingCompleted.RemoveListener(DisableFeverMode);
+        EventManager.OnRampJumpingStarted.RemoveListener(OnJumpingStarted);
+        EventManager.OnRampJumpingCompleted.RemoveListener(OnJumpingCompleted);       
     }
-
+   
+  
     private void EnableFeverMode() 
     {
         DisableCountdown();
@@ -42,6 +44,9 @@ public class FeverModeManager : Singleton<FeverModeManager>
         if (!IsFeverModeEnabled)
             return;
 
+        if (IsFeverModeLocked)
+            return;
+
         IsFeverModeEnabled = false;
         EventManager.OnFeverModeDisabled.Invoke();
     }
@@ -54,8 +59,21 @@ public class FeverModeManager : Singleton<FeverModeManager>
         _disableCoroutine = Utilities.ExecuteAfterDelay(this, FEVER_MODE_DURATION, () => DisableFeverMode());
     }
 
+    private void OnJumpingStarted() 
+    {
+        IsFeverModeLocked = true;
+        EnableFeverMode();
+    }
+
+    private void OnJumpingCompleted() 
+    {
+        IsFeverModeLocked = false;
+        DisableFeverMode();
+    }
+
     private void ResetValues() 
     {
         IsFeverModeEnabled = false;
+        IsFeverModeLocked = false;
     }
 }

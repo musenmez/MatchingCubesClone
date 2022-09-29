@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interactor : MonoBehaviour
 {
     public Transform Body => _body;
-    [SerializeField] private Transform _body;
+    [SerializeField] private Transform _body;    
 
     private void OnTriggerEnter(Collider other)
     {
