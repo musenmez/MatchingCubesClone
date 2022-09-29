@@ -48,7 +48,9 @@ public class Player : MonoBehaviour
         IsFailed = true;
         IsControllable = false;
         CanMoveForward = false;
+
         OnPlayerFailed.Invoke();
+        EventManager.OnLevelFailed.Invoke();
     }
 
     private void ActivatePlayer() 

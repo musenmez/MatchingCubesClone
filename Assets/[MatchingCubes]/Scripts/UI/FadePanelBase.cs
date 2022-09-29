@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using DG.Tweening;
 using System;
 
-
+[RequireComponent(typeof(CanvasGroup))]
 public abstract class FadePanelBase : MonoBehaviour
 {
     private CanvasGroup _canvasGroup;
@@ -23,12 +23,12 @@ public abstract class FadePanelBase : MonoBehaviour
         _fadeTweenID = GetInstanceID() + "FadeTweenID";
     }
 
-    public virtual void ShowPanelWithFade(float duration, float delay)
+    public virtual void ShowPanelWithFade(float duration, float delay = 0)
     {    
         FadeTween(MAX_FADE, duration, delay, ShowPanel);     
     }
 
-    public virtual void HidePanelWithFade(float duration, float delay)
+    public virtual void HidePanelWithFade(float duration, float delay = 0)
     {        
         FadeTween(MIN_FADE, duration, delay, HidePanel);       
     }
