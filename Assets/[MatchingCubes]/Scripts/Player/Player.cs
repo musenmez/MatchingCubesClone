@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public static Player Instance;
     public bool IsFailed { get; private set; }
+    public bool IsSucceded { get; private set; }
     public bool IsControllable { get; private set; }
     public bool CanMoveForward { get; private set; }
 
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     public UnityEvent OnPlayerActivated = new UnityEvent();
     [HideInInspector]
     public UnityEvent OnPlayerFailed = new UnityEvent();
+    [HideInInspector]
+    public UnityEvent OnPlayerSucceeded = new UnityEvent();
 
     private void Awake()
     {        
@@ -42,7 +45,7 @@ public class Player : MonoBehaviour
 
     public void TriggerFail() 
     {
-        if (IsFailed)
+        if (IsSucceded || IsFailed)
             return;
 
         IsFailed = true;
@@ -51,6 +54,19 @@ public class Player : MonoBehaviour
 
         OnPlayerFailed.Invoke();
         EventManager.OnLevelFailed.Invoke();
+    }
+
+    public void TriggerSuccess() 
+    {
+        if (IsSucceded || IsFailed)
+            return;
+
+        IsSucceded = true;
+        IsControllable = false;
+        CanMoveForward = false;
+
+        OnPlayerSucceeded.Invoke();
+        EventManager.OnLevelCompleted.Invoke();
     }
 
     private void ActivatePlayer() 

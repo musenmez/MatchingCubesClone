@@ -12,17 +12,20 @@ public class PlayerAnimation : MonoBehaviour
 
     private const string RUN_PARAMETER = "Run";
     private const string FAIL_PARAMETER = "Fail";
+    private const string WIN_PARAMETER = "Win";
 
     private void OnEnable()
     {
         Player.OnPlayerActivated.AddListener(() => SetTrigger(RUN_PARAMETER));
         Player.OnPlayerFailed.AddListener(() => SetTrigger(FAIL_PARAMETER));
+        Player.OnPlayerSucceeded.AddListener(() => SetTrigger(WIN_PARAMETER));
     }
 
     private void OnDisable()
     {
         Player.OnPlayerActivated.RemoveListener(() => SetTrigger(RUN_PARAMETER));
         Player.OnPlayerFailed.RemoveListener(() => SetTrigger(FAIL_PARAMETER));
+        Player.OnPlayerSucceeded.RemoveListener(() => SetTrigger(WIN_PARAMETER));
     }
 
     private void SetTrigger(string parameter) 

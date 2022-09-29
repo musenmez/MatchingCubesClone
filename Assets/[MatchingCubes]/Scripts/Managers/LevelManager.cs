@@ -6,8 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : Singleton<LevelManager>
 {
+    public int CurrentLevelIndex => SceneManager.GetActiveScene().buildIndex;
+    public int NextLevelIndex 
+    { 
+        get
+        {
+            int index = CurrentLevelIndex + 1;
+            int maxIndex = SceneManager.sceneCountInBuildSettings - 1;
+            index = Mathf.Min(index, maxIndex);
+            return index;
+        } 
+    }
+    
     public bool IsLevelStarted { get; private set; }
-
     public bool IsLoading { get; private set; }
 
     [HideInInspector]
@@ -26,9 +37,8 @@ public class LevelManager : Singleton<LevelManager>
     }
 
     public void RestartLevel() 
-    {
-        int index = SceneManager.GetActiveScene().buildIndex;
-        LoadScene(index);
+    {        
+        LoadScene(CurrentLevelIndex);
     }   
 
     private void StartLevel() 
