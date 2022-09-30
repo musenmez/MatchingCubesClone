@@ -7,7 +7,7 @@ public class PlayerCubeMatch : MonoBehaviour
     private PlayerStack _playerStack;
     private PlayerStack PlayerStack => _playerStack == null ? _playerStack = GetComponentInParent<PlayerStack>() : _playerStack;
 
-    private const float MATCH_DELAY = 0.3f;
+    private const float MATCH_DELAY = 0.15f;
     private const int MATCH_THRESHOLD = 3;
 
     private Coroutine _matchCoroutine = null;

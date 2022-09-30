@@ -1228,6 +1228,12 @@ MonoBehaviour:
   OnPlayerSucceeded:
     m_PersistentCalls:
       m_Calls: []
+  OnPlayerJumpingStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerJumpingCompleted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-6523170178276885233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1356,7 +1362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2560
   OnGroundedStatusChanged:
     m_PersistentCalls:
       m_Calls: []

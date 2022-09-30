@@ -41,6 +41,12 @@ public class PlayerAnimation : MonoBehaviour
 
     private void CheckPlayerStatus() 
     {
+        if (Player.IsFailed)
+            return;
+
+        if (Player.IsSucceded)
+            return;
+
         switch (PlayerStatus.CurrentPlayerStatus)
         {
             case PlayerStatusType.Flying:

@@ -41,6 +41,12 @@ public class PlayerStatus : MonoBehaviour
 
     private void CheckStatus() 
     {
+        if (Player.IsFailed)
+            return;
+
+        if (Player.IsSucceded)
+            return;
+
         PlayerStatusType playerStatus;
 
         if (Player.IsJumping)

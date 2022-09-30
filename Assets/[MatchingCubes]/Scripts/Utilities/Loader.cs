@@ -12,14 +12,11 @@ public class Loader
     {
         GameObject.Instantiate(Resources.Load<GameObject>(MANAGERS_PATH));
         GameObject.Instantiate(Resources.Load<GameObject>(UI_PATH));
-        
-        Debug.Log("Before Scene is loaded and game is running");
     }
 
     [RuntimeInitializeOnLoadMethod((RuntimeInitializeLoadType.AfterSceneLoad))]
     static void OnAfterSceneLoad()
     {
         EventManager.OnSceneLoaded.Invoke();
-        Debug.Log("After Scene is loaded and game is running");
     }
 }

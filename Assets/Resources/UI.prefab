@@ -1472,7 +1472,7 @@ GameObject:
   - component: {fileID: 4366617732844889065}
   - component: {fileID: 3045059721045005758}
   m_Layer: 0
-  m_Name: Level Failed Text
+  m_Name: Level Completed Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1526,7 +1526,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL COMPLETE
+  m_text: LEVEL COMPLETED
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ae9422aa839b8345b19717db72be9f3, type: 2}
   m_sharedMaterial: {fileID: 1095075782206563645, guid: 8ae9422aa839b8345b19717db72be9f3, type: 2}
@@ -1553,7 +1553,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 107.55
+  m_fontSize: 99.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

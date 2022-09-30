@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f73fb547a5dc8b4e80cf3859aa01d9b, type: 3}
   m_Name: Movement Data
   m_EditorClassIdentifier: 
-  DefaultSpeed: 6
-  FeverSpeed: 15
-  LavaSpeed: 4
+  DefaultSpeed: 8
+  FeverSpeed: 18

@@ -6,6 +6,5 @@ using UnityEngine;
 public class MovementData : ScriptableObject
 {
     public float DefaultSpeed;
-    public float FeverSpeed;
-    public float LavaSpeed;
+    public float FeverSpeed;    
 }
