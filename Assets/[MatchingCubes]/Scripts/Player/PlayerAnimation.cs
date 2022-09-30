@@ -18,8 +18,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private const string RUN_PARAMETER = "Run";
     private const string FAIL_PARAMETER = "Fail";
-    private const string WIN_PARAMETER = "Win";
-    private const string JUMP_PARAMETER = "Jump";
+    private const string WIN_PARAMETER = "Win";   
     private const string FALL_PARAMETER = "Fall";
     private const string FLY_PARAMETER = "Fly";
     private const string CUBE_IDLE_PARAMETER = "CubeIdle";
@@ -28,8 +27,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         Player.OnPlayerActivated.AddListener(() => SetTrigger(RUN_PARAMETER));
         Player.OnPlayerFailed.AddListener(() => SetTrigger(FAIL_PARAMETER));
-        Player.OnPlayerSucceeded.AddListener(() => SetTrigger(WIN_PARAMETER));
-        PlayerStack.OnStackIncreased.AddListener(() => SetTrigger(JUMP_PARAMETER));
+        Player.OnPlayerSucceeded.AddListener(() => SetTrigger(WIN_PARAMETER));        
         PlayerStatus.OnPlayerStatusChanged.AddListener(CheckPlayerStatus);
     }
 
@@ -37,8 +35,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         Player.OnPlayerActivated.RemoveListener(() => SetTrigger(RUN_PARAMETER));
         Player.OnPlayerFailed.RemoveListener(() => SetTrigger(FAIL_PARAMETER));
-        Player.OnPlayerSucceeded.RemoveListener(() => SetTrigger(WIN_PARAMETER));
-        PlayerStack.OnStackIncreased.RemoveListener(() => SetTrigger(JUMP_PARAMETER));
+        Player.OnPlayerSucceeded.RemoveListener(() => SetTrigger(WIN_PARAMETER));        
         PlayerStatus.OnPlayerStatusChanged.RemoveListener(CheckPlayerStatus);
     }
 
