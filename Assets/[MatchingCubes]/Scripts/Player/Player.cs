@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+    public bool IsJumping { get; private set; }
     public bool IsFailed { get; private set; }
     public bool IsSucceded { get; private set; }
     public bool IsControllable { get; private set; }
@@ -17,6 +18,10 @@ public class Player : MonoBehaviour
     public UnityEvent OnPlayerFailed = new UnityEvent();
     [HideInInspector]
     public UnityEvent OnPlayerSucceeded = new UnityEvent();
+    [HideInInspector]
+    public UnityEvent OnPlayerJumpingStarted = new UnityEvent();
+    [HideInInspector]
+    public UnityEvent OnPlayerJumpingCompleted = new UnityEvent();
 
     private void Awake()
     {        
@@ -77,12 +82,16 @@ public class Player : MonoBehaviour
     }
 
     private void OnJumpingStarted() 
-    {       
+    {
+        IsJumping = true;
         CanMoveForward = false;
+        OnPlayerJumpingStarted.Invoke();
     }
 
     private void OnJumpingCompleted() 
-    {                                 
+    {
+        IsJumping = false;
         CanMoveForward = true;
+        OnPlayerJumpingCompleted.Invoke();
     }
 }

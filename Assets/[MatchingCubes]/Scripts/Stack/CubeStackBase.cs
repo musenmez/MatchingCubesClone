@@ -21,6 +21,10 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
     [HideInInspector]
     public UnityEvent OnStackUpdated = new UnityEvent();
     [HideInInspector]
+    public UnityEvent OnStackIncreased = new UnityEvent();
+    [HideInInspector]
+    public UnityEvent OnStackDecreased = new UnityEvent();
+    [HideInInspector]
     public UnityEvent OnLastCubeTypeChanged = new UnityEvent();
 
     public virtual void AddToStack(Cube cube)
@@ -34,6 +38,7 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         Cubes.Add(cube);     
         AddOffsetToStack();
         UpdateStack();
+        OnStackIncreased.Invoke();
     }
 
     public virtual void RemoveFromStack(Cube cube)
@@ -43,6 +48,7 @@ public abstract class CubeStackBase : MonoBehaviour, ICubeStack
         
         Cubes.Remove(cube);       
         UpdateStack();
+        OnStackDecreased.Invoke();
     }
 
     public virtual void UpdateStack() 
