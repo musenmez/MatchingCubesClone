@@ -44,7 +44,10 @@ public static class Utilities
     }
 
     public static Coroutine ExecuteAfterDelay(MonoBehaviour behaviour, float delay, Action action) 
-    {       
+    {
+        if (behaviour == null || !behaviour.gameObject.activeSelf)
+            return null;
+
         return behaviour.StartCoroutine(ExecuteCoroutine(delay, action));
     }
 

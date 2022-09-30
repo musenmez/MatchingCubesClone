@@ -11,8 +11,9 @@ public class PlayerStackTrail : MonoBehaviour
     private PlayerStack PlayerStack => _playerStack == null ? _playerStack = GetComponentInParent<PlayerStack>() : _playerStack;   
     public Trail CurrentTrail { get; private set; }
 
-    [SerializeField] private Transform _trailParent;
-    [SerializeField] private GameObject _trailPrefab;
+    private const string TRAIL_POOL_ID = "Trail";
+
+    [SerializeField] private Transform _trailParent;    
 
     private void OnEnable()
     {
@@ -42,7 +43,8 @@ public class PlayerStackTrail : MonoBehaviour
 
         DisableCurrentTrail();
 
-        Trail trail = Instantiate(_trailPrefab, _trailParent.position, Quaternion.identity, _trailParent).GetComponentInChildren<Trail>();
+        Trail trail = PoolingSystem.Instance.InstantiateFromPool(TRAIL_POOL_ID, _trailParent.position, Quaternion.identity).GetComponentInChildren<Trail>();
+        trail.transform.SetParent(_trailParent);
         trail.Initialize(cubeData.TrailColor);
 
         CurrentTrail = trail;
@@ -53,6 +55,6 @@ public class PlayerStackTrail : MonoBehaviour
         if (CurrentTrail == null)
             return;
 
-        CurrentTrail.DisableTrail();
+        CurrentTrail.DestroyTrail();
     } 
 }

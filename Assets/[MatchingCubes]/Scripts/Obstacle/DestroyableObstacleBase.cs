@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class DestroyableObstacleBase : ObstacleBase
 {
     private Rigidbody _rigidbody;
     private Rigidbody Rigidbody => _rigidbody == null ? _rigidbody = GetComponentInChildren<Rigidbody>() : _rigidbody;
@@ -10,26 +10,17 @@ public class Obstacle : MonoBehaviour
     private Collider[] _colliders;
     private Collider[] Colliders => _colliders == null ? _colliders = GetComponentsInChildren<Collider>() : _colliders;
 
-    public bool IsDestroyed { get; private set; }
+    public bool IsDestroyed { get; private set; }   
 
-    private void OnTriggerEnter(Collider other)
-    {
-        CheckObstacle(other);
-    }
-    
-    private void CheckObstacle(Collider collider) 
+    protected override void CheckObstacle(Collider collider)
     {
         if (IsDestroyed)
             return;
 
-        IObstacleTarget obstacleTarget = collider.GetComponentInParent<IObstacleTarget>();
-        if (obstacleTarget != null)
-        {
-            obstacleTarget.Hit();
-        }        
+        base.CheckObstacle(collider);
     }
 
-    public void DestroyObstacle(float force, Vector3 explosionPosition, float radius, float upwardsModifier) 
+    public void DestroyObstacle(float force, Vector3 explosionPosition, float radius, float upwardsModifier)
     {
         if (IsDestroyed)
             return;
@@ -40,7 +31,7 @@ public class Obstacle : MonoBehaviour
         Rigidbody.AddExplosionForce(force, explosionPosition, radius, upwardsModifier, ForceMode.Impulse);
     }
 
-    private void SetCollidersTrigger(bool isTrigger) 
+    private void SetCollidersTrigger(bool isTrigger)
     {
         foreach (var collider in Colliders)
         {
