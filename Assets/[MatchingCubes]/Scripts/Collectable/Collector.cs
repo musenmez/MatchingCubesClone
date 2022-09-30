@@ -5,7 +5,7 @@ using UnityEngine;
 public class Collector : MonoBehaviour
 {
     private bool _canCollect = true;
-    public bool CanCollect { get => _canCollect; private set => _canCollect = value; }
+    public bool CanCollect { get => _canCollect; protected set => _canCollect = value; }
 
     protected virtual void OnTriggerEnter(Collider other)
     {

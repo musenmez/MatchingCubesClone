@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
+    private bool _canInteract = true;
+    public bool CanInteract { get => _canInteract; protected set => _canInteract = value; }
+
     public Transform Body => _body;
     [SerializeField] private Transform _body;    
 
@@ -19,6 +22,9 @@ public class Interactor : MonoBehaviour
 
     private void CheckInteraction(Collider collider) 
     {
+        if (!CanInteract)
+            return;
+
         IInteractable interactable = collider.GetComponentInParent<IInteractable>();
         if (interactable != null)
         {
