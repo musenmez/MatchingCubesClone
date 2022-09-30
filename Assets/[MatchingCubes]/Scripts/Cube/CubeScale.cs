@@ -19,15 +19,12 @@ public class CubeScale : MonoBehaviour
     private const float PUNCH_DURATION = 0.3f;
     private const Ease PUNCH_EASE = Ease.InOutSine;
 
-    private string _scaleTweenID;
-    private string _punchTweenID;
+    private string _scaleTweenID;  
     private Vector3 _defaultScale;
 
     private void Awake()
     {
         _scaleTweenID = GetInstanceID() + "ScaleTweenID";
-        _punchTweenID = GetInstanceID() + "PunchTweenID";
-
         _defaultScale = _body.localScale;
     }
 
@@ -52,28 +49,16 @@ public class CubeScale : MonoBehaviour
 
     private void OnMatched() 
     {
-        KillTweens();
+        DOTween.Kill(_scaleTweenID);
         Sequence matchSequence = DOTween.Sequence();
-        matchSequence.Append(_visual.DOPunchScale(Vector3.one * PUNCH_STRENGTH, PUNCH_DURATION, vibrato: 1).SetId(_punchTweenID).SetEase(PUNCH_EASE))
-        .Append(_visual.DOScale(_defaultScale * MIN_SCALE_MULTIPLIER, SCALE_DURATION).SetEase(Ease.Linear).SetId(_scaleTweenID)).OnComplete(() => Cube.DestroyCube());
+        matchSequence.Append(_visual.DOPunchScale(Vector3.one * PUNCH_STRENGTH, PUNCH_DURATION, vibrato: 1).SetId(_scaleTweenID).SetEase(PUNCH_EASE))
+        .Append(_visual.DOScale(_defaultScale * MIN_SCALE_MULTIPLIER, SCALE_DURATION).SetEase(Ease.Linear).SetId(_scaleTweenID)).OnComplete(() => Cube.DestroyCube()).SetId(_scaleTweenID);
     }
 
     private void ScaleTween(Vector3 from, Vector3 to, float duration) 
     {
-        KillTweens();
-        _visual.localScale = from;
-        _visual.DOScale(to, duration).SetEase(SCALE_EASE).SetId(_scaleTweenID);
-    }
-
-    private void PunchScaleTween() 
-    {
-        KillTweens();
-        _body.DOPunchScale(Vector3.one * PUNCH_STRENGTH, PUNCH_DURATION, vibrato: 1).SetId(_punchTweenID).SetEase(PUNCH_EASE);
-    }
-
-    private void KillTweens() 
-    {
         DOTween.Kill(_scaleTweenID);
-        DOTween.Complete(_punchTweenID);
-    }
+        _body.localScale = from;
+        _body.DOScale(to, duration).SetEase(SCALE_EASE).SetId(_scaleTweenID);
+    }  
 }
