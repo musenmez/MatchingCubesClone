@@ -22,10 +22,5 @@ public class VirtualCameraBase : MonoBehaviour
             return;
 
         CameraManager.Instance.RemoveCamera(this);
-    }
-
-    public virtual void ActivateCamera(float blendTime)
-    {
-        CameraManager.Instance.ActivateCamera(this, blendTime);
-    }
+    }   
 }
