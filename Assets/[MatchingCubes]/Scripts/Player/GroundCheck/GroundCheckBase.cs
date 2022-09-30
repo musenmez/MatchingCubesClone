@@ -6,15 +6,23 @@ using UnityEngine.Events;
 public abstract class GroundCheckBase : MonoBehaviour
 {
     public bool IsGrounded { get; private set; }
+    public virtual float DistanceOffset => 0.35f;
     public abstract Transform OriginBody { get; protected set; }
 
     [SerializeField] private LayerMask _groundLayer;
 
     protected const float ORIGIN_HEIGHT_OFFSET = 5f;
-    protected const float RAYCAST_DISTANCE = 5.35f;
+    protected const float SPHERECAST_RADIUS = 0.2f;
+
+    private float _rayDistance;
 
     [HideInInspector]
     public UnityEvent OnGroundedStatusChanged = new UnityEvent();
+
+    protected virtual void Awake() 
+    {
+        _rayDistance = ORIGIN_HEIGHT_OFFSET + DistanceOffset;
+    }
 
     protected virtual void FixedUpdate()
     {
@@ -30,7 +38,7 @@ public abstract class GroundCheckBase : MonoBehaviour
         }
 
         Vector3 rayOrigin = OriginBody.position + Vector3.up * ORIGIN_HEIGHT_OFFSET;
-        if (Physics.Raycast(rayOrigin, Vector3.down, RAYCAST_DISTANCE, _groundLayer))
+        if (Physics.SphereCast(rayOrigin, SPHERECAST_RADIUS, Vector3.down, out RaycastHit hit, _rayDistance, _groundLayer))
         {
             SetGroundedStatus(true);
         }

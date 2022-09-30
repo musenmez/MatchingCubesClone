@@ -46,11 +46,11 @@ public class PlayerStatus : MonoBehaviour
         if (Player.IsJumping)
             playerStatus = PlayerStatusType.Flying;
 
-        else if (GroundCheck.IsGrounded)
-            playerStatus = PlayerStatusType.OnGround;
-
         else if (CubeCheck.IsGrounded)
             playerStatus = PlayerStatusType.OnCube;
+
+        else if (GroundCheck.IsGrounded)
+            playerStatus = PlayerStatusType.OnGround;
 
         else
             playerStatus = PlayerStatusType.OnAir;
