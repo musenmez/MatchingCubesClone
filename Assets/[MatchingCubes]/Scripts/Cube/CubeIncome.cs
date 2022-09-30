@@ -11,12 +11,20 @@ public class CubeIncome : MonoBehaviour
 
     private void OnEnable()
     {
-        Cube.OnDestroyed.AddListener(CreateCoin);
+        Cube.OnDestroyed.AddListener(CheckIncome);
     }
 
     private void OnDisable()
     {
-        Cube.OnDestroyed.RemoveListener(CreateCoin);
+        Cube.OnDestroyed.RemoveListener(CheckIncome);
+    }
+
+    private void CheckIncome() 
+    {
+        if (!Cube.IsMatched)
+            return;
+
+        CreateCoin();
     }
 
     private void CreateCoin() 

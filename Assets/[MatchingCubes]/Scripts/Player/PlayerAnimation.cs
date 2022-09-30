@@ -8,10 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     private Animator Animator => _animator == null ? _animator = GetComponentInChildren<Animator>() : _animator;
 
     private Player _player;
-    private Player Player => _player == null ? _player = GetComponentInParent<Player>() : _player;
-
-    private PlayerStack _playerStack;
-    private PlayerStack PlayerStack => _playerStack == null ? _playerStack = GetComponentInParent<PlayerStack>() : _playerStack;
+    private Player Player => _player == null ? _player = GetComponentInParent<Player>() : _player;    
 
     private PlayerStatus _playerStatus;
     private PlayerStatus PlayerStatus => _playerStatus == null ? _playerStatus = GetComponentInParent<PlayerStatus>() : _playerStatus;

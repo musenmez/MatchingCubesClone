@@ -7,7 +7,8 @@ public class CoinPanel : FadePanelBase
 {
     public static CoinPanel Instance;
 
-    [SerializeField] private Transform _coinIcon;  
+    [SerializeField] private Transform _coinTarget;
+    [SerializeField] private Transform _punchBody;
 
     private const float FADE_DURATION = 0.25f;
 
@@ -15,7 +16,7 @@ public class CoinPanel : FadePanelBase
     private const float MOVEMENT_DURATION = 1f;
 
     private const Ease SCALE_EASE = Ease.Linear;
-    private const float SCALE_DURATION = 0.2f;
+    private const float SCALE_DURATION = 0.3f;
     private const float MIN_SCALE_MULTIPLIER = 0.01f;
 
     private const float PUNCH_STRENGTH = 0.2f;
@@ -31,7 +32,7 @@ public class CoinPanel : FadePanelBase
         base.Awake();
 
         Instance = this;
-        _punchTweenID = _coinIcon.GetInstanceID() + "PunchTweenID";
+        _punchTweenID = _coinTarget.GetInstanceID() + "PunchTweenID";
     }
 
     private void OnEnable()
@@ -54,7 +55,7 @@ public class CoinPanel : FadePanelBase
     {
         Vector3 spawnPosition = Utilities.WorldToUISpace(UICanvas.Instance.Canvas, worldPosition);
         GameObject coin = PoolingSystem.Instance.InstantiateFromPool(COIN_POOL_ID, spawnPosition, Quaternion.identity);
-        coin.transform.SetParent(_coinIcon);
+        coin.transform.SetParent(_coinTarget);
 
         CoinMovement(coin, coinValue);
         CoinScale(coin);
@@ -78,7 +79,7 @@ public class CoinPanel : FadePanelBase
     private void PunchScaleTween()
     {
         DOTween.Kill(_punchTweenID);
-        _coinIcon.DOPunchScale(Vector3.one * PUNCH_STRENGTH, PUNCH_DURATION, vibrato: 1).SetId(_punchTweenID).SetEase(PUNCH_EASE);
+        _punchBody.DOPunchScale(Vector3.one * PUNCH_STRENGTH, PUNCH_DURATION, vibrato: 1).SetId(_punchTweenID).SetEase(PUNCH_EASE);
     }
 
     private void AddCoin(float coinValue)
