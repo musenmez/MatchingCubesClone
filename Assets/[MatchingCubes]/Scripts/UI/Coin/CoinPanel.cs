@@ -7,8 +7,7 @@ public class CoinPanel : FadePanelBase
 {
     public static CoinPanel Instance;
 
-    [SerializeField] private Transform _coinIcon;
-    [SerializeField] private GameObject _coinPrefab;
+    [SerializeField] private Transform _coinIcon;  
 
     private const float FADE_DURATION = 0.25f;
 
@@ -22,6 +21,8 @@ public class CoinPanel : FadePanelBase
     private const float PUNCH_STRENGTH = 0.2f;
     private const float PUNCH_DURATION = 0.3f;
     private const Ease PUNCH_EASE = Ease.InOutSine;
+
+    private const string COIN_POOL_ID = "Coin";
 
     private string _punchTweenID;
 
@@ -52,7 +53,9 @@ public class CoinPanel : FadePanelBase
     public void CreateCoin(Vector3 worldPosition, float coinValue) 
     {
         Vector3 spawnPosition = Utilities.WorldToUISpace(UICanvas.Instance.Canvas, worldPosition);
-        GameObject coin = Instantiate(_coinPrefab, spawnPosition, Quaternion.identity, _coinIcon);
+        GameObject coin = PoolingSystem.Instance.InstantiateFromPool(COIN_POOL_ID, spawnPosition, Quaternion.identity);
+        coin.transform.SetParent(_coinIcon);
+
         CoinMovement(coin, coinValue);
         CoinScale(coin);
     }
@@ -88,6 +91,6 @@ public class CoinPanel : FadePanelBase
     {
         AddCoin(coinValue);
         PunchScaleTween();
-        Destroy(coin);
+        PoolingSystem.Instance.DestroyPoolObject(coin);
     }
 }

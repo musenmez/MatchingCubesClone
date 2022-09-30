@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4202440607966951624}
   - component: {fileID: 3443790761220330590}
   - component: {fileID: 2217125731067416889}
+  - component: {fileID: 6256071843500602790}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -119,3 +120,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90996c3769a5fa4439284543b85c7756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6256071843500602790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708191350492249964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c367107bd4440cb40beed7c805d23394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pools:
+  - PoolID: Coin
+    Prefab: {fileID: 3612208398335511860, guid: abbd80db0ef7313499ee1e84f67d3133, type: 3}
+    InitialSize: 3
+  - PoolID: Trail
+    Prefab: {fileID: 2619963483418477349, guid: 353f29ec971ce5742865ffd903441c31, type: 3}
+    InitialSize: 2
