@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8499184113179037275}
   - component: {fileID: 4198738334483319641}
   m_Layer: 11
-  m_Name: P_Obstacle
+  m_Name: P_CubeObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &8499184113179037275
 BoxCollider:
   m_ObjectHideFlags: 0
